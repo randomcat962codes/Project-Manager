@@ -20,6 +20,7 @@ class Program
   //Function for handling potential null values in input
   static string GetInput()
   {
+    Console.Write("> ");
     string result = "";
     string? inp = Console.ReadLine();
     if (!(inp == null))
