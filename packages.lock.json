@@ -1,6 +1,13 @@
 {
   "version": 1,
   "dependencies": {
-    "net9.0": {}
+    "net9.0": {
+      "JsonStorage": {
+        "type": "Direct",
+        "requested": "[1.0.0, )",
+        "resolved": "1.0.0",
+        "contentHash": "FZEhmJl9JWBGF/xBwCVwHtc4lrp8tczshSLFdfqu82F9Rim1mrjBUMVUybiXgN/GkxXdU4hBVYBn0sMrA4Rb8w=="
+      }
+    }
   }
 }

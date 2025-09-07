@@ -1,4 +1,4 @@
 *.replit
-
+projectManager.json
 bin/*
 obj/*
