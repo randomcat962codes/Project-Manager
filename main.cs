@@ -18,9 +18,9 @@ class Program
     return Convert.ToString(Array.IndexOf(arr, val)+1);
   }
   //Function for handling potential null values in input
-  static string GetInput()
+  static string GetInput(string prompt = "> ")
   {
-    Console.Write("> ");
+    Console.Write(prompt);
     string result = "";
     string? inp = Console.ReadLine();
     if (!(inp == null))
@@ -37,7 +37,7 @@ class Program
     storage.Load();
 
     //Menu information
-    string[] menuOptions = { "Exit" };
+    string[] menuOptions = { "View Projects", "Add Project", "Exit" };
     string userInput;
 
     //Program loop
@@ -56,7 +56,62 @@ class Program
       Console.Clear();
 
       //Checks for valid input and runs the selected options, otherwise asks the user to repeat their input and check for errors
-      if (userInput == ListNumber(menuOptions, "Exit"))
+      if (userInput == ListNumber(menuOptions, "View Projects"))
+      {
+        string[] projects = storage.GetKeys();
+        string projectChoice;
+        
+        //Loop for showing the user the saved projects and asking them to choose which one they want to open
+        bool validInput = false;
+        while (!validInput)
+        {
+          Console.WriteLine(WriteTitle("Projects"));
+          for (int i = 0; i < projects.Length; i++)
+          {
+            Console.WriteLine(Convert.ToString(i+1) + ": " + projects[i]);
+          }
+          projectChoice = GetInput();
+
+          //Checks if the project exists
+        }
+
+        Console.Clear();
+        
+        //Loop for veiwing the project
+        bool showProject = false; //only false because it's not needed right now
+        while (showProject)
+        {
+          
+        }
+      }
+      else if (userInput == ListNumber(menuOptions, "Add Project"))
+      {
+        //Gets basic project information
+        string projTitle = GetInput("Please enter the project title:\n> ");
+        string projDesc = GetInput("Please enter a description for your project:\n> ");
+        string projLang = GetInput("Please enter the language for your project:\n> ");
+        string projFolder = GetInput("Please enter the path to your project folder:\n> ");
+        string mainScriptPath = GetInput("Please enter the path to your projects main source file:\n> ");
+        //Gets language specific information
+        string csprojPath = "none";
+        if (projLang == "C#")
+        {
+          csprojPath = GetInput("Please enter the path to your project file:\n> ");
+        }
+
+        //Saves the information
+        storage.storageObject["ProjectTitle"] = new Dictionary<string,dynamic>();
+        storage.storageObject["ProjectTitle"]["ProjectDescription"] = projDesc;
+        storage.storageObject["ProjectTitle"]["ProjectLanguage"] = projLang;
+        storage.storageObject["ProjectTitle"]["ProjectFolder"] = projFolder;
+        storage.storageObject["ProjectTitle"]["MainScriptPath"] = mainScriptPath;
+        if (projLang == "C#")
+        {
+          storage.storageObject["ProjectTitle"]["ProjectFilePath"] = csprojPath;
+        }
+        storage.Save();
+      }
+      else if (userInput == ListNumber(menuOptions, "Exit"))
       {
         runProgram = false;
       }

@@ -1,1 +1,8 @@
-{}
+{
+  "ProjectTitle": {
+    "ProjectDescription": "This is an example project.",
+    "ProjectLanguage": "Example Language",
+    "ProjectFolder": "example/path",
+    "MainScriptPath": "example/path/sourcefile.sourcefile"
+  }
+}
