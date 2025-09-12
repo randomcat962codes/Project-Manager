@@ -5,6 +5,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>Enable</ImplicitUsings>
     <Nullable>Enable</Nullable>
+
+    <RestoreAdditionalProjectSources>./localNuget</RestoreAdditionalProjectSources>
   </PropertyGroup>
 
   <ItemGroup>
