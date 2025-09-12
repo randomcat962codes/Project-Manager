@@ -59,29 +59,67 @@ class Program
       if (userInput == ListNumber(menuOptions, "View Projects"))
       {
         string[] projects = storage.GetKeys();
-        string projectChoice;
+        int projectNum = -1;
+        bool cancel = false; //This is if the user enters back.
         
         //Loop for showing the user the saved projects and asking them to choose which one they want to open
         bool validInput = false;
         while (!validInput)
         {
           Console.WriteLine(WriteTitle("Projects"));
+          int displayedItems = 0;
           for (int i = 0; i < projects.Length; i++)
           {
             Console.WriteLine(Convert.ToString(i+1) + ": " + projects[i]);
+            displayedItems++;
           }
-          projectChoice = GetInput();
+          Console.WriteLine(Convert.ToString(displayedItems+1) + ": Back");
+          userInput = GetInput();
 
-          //Checks if the project exists
+          //Tries to convert the user input to a number
+          try
+          {
+            projectNum = Convert.ToInt32(userInput)-1;
+          }
+          catch
+          {
+            Console.Clear();
+            GetInput("There was an error with your input. Please make sure your input is a number in the list and try again.\n> ");
+            Console.Clear();
+            continue;
+          }
+
+          if (projectNum < 0 || projectNum > projects.Length)
+          {
+            cancel = true;
+          }
+
+          validInput = true;
         }
 
         Console.Clear();
         
         //Loop for veiwing the project
-        bool showProject = false; //only false because it's not needed right now
-        while (showProject)
+        //Project num is the value you will want for the project in the storage.
+        bool showProject = true; 
+        while (showProject && !(cancel))
         {
+          string[] options = { "Return to Main Menu" };
           
+          Console.WriteLine(WriteTitle(projects[projectNum]));
+
+          //Displays the options and gets user input
+          for (int i = 0; i < options.Length; i++)
+          {
+            Console.WriteLine(Convert.ToString(i+1) + ": " + options[i]);
+          }
+          userInput = GetInput();
+
+          //Checks the options
+          if (userInput == ListNumber(options, "Return to Main Menu"))
+          {
+            showProject = false;
+          }
         }
       }
       else if (userInput == ListNumber(menuOptions, "Add Project"))
@@ -100,6 +138,7 @@ class Program
         }
 
         //Saves the information
+        //Has a null referance warning!
         storage.storageObject["ProjectTitle"] = new Dictionary<string,dynamic>();
         storage.storageObject["ProjectTitle"]["ProjectDescription"] = projDesc;
         storage.storageObject["ProjectTitle"]["ProjectLanguage"] = projLang;
