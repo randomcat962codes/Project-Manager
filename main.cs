@@ -131,7 +131,7 @@ class Program
         string projFolder = GetInput("Please enter the path to your project folder:\n> ");
         string mainScriptPath = GetInput("Please enter the path to your projects main source file:\n> ");
         //Gets language specific information
-        string csprojPath = "none";
+        string? csprojPath = "none";
         if (projLang == "C#")
         {
           csprojPath = GetInput("Please enter the path to your project file:\n> ");
@@ -139,14 +139,14 @@ class Program
 
         //Saves the information
         //Has a null referance warning!
-        storage.storageObject["ProjectTitle"] = new Dictionary<string,dynamic>();
-        storage.storageObject["ProjectTitle"]["ProjectDescription"] = projDesc;
-        storage.storageObject["ProjectTitle"]["ProjectLanguage"] = projLang;
-        storage.storageObject["ProjectTitle"]["ProjectFolder"] = projFolder;
-        storage.storageObject["ProjectTitle"]["MainScriptPath"] = mainScriptPath;
+        storage.storageObject[projTitle] = new Dictionary<string,dynamic?>();
+        storage.storageObject[projTitle]!["ProjectDescription"] = projDesc;
+        storage.storageObject[projTitle]!["ProjectLanguage"] = projLang;
+        storage.storageObject[projTitle]!["ProjectFolder"] = projFolder;
+        storage.storageObject[projTitle]!["MainScriptPath"] = mainScriptPath;
         if (projLang == "C#")
         {
-          storage.storageObject["ProjectTitle"]["ProjectFilePath"] = csprojPath;
+          storage.storageObject[projTitle]!["ProjectFilePath"] = csprojPath;
         }
         storage.Save();
       }
